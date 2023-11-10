@@ -191,9 +191,9 @@ Neighbor list info ...
 Per MPI rank memory allocation (min/avg/max) = 3.012 | 3.012 | 3.012 Mbytes
     PotEng          Pxx           E_mol          E_coul    
  0              0              0              0            
-Loop time of 9.16e-07 on 1 procs for 0 steps with 71 atoms
+Loop time of 2.458e-06 on 1 procs for 0 steps with 71 atoms
 
-109.2% CPU use with 1 MPI tasks x no OpenMP threads
+406.8% CPU use with 1 MPI tasks x no OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
@@ -203,17 +203,17 @@ Neigh   | 0          | 0          | 0          |   0.0 |  0.00
 Comm    | 0          | 0          | 0          |   0.0 |  0.00
 Output  | 0          | 0          | 0          |   0.0 |  0.00
 Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 9.16e-07   |            |       |100.00
+Other   |            | 2.458e-06  |            |       |100.00
 
 Nlocal:             71 ave          71 max          71 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:           1456 ave        1456 max        1456 min
+Nghost:           1460 ave        1460 max        1460 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:          16602 ave       16602 max       16602 min
+Neighs:          16810 ave       16810 max       16810 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
-Total # of neighbors = 16602
-Ave neighs/atom = 233.83099
+Total # of neighbors = 16810
+Ave neighs/atom = 236.76056
 Neighbor list builds = 0
 Dangerous builds = 0
 Total wall time: 0:00:00
