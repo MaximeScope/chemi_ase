@@ -41,8 +41,8 @@ def dislocations(atom, structure, aseLatticeData, dislocation_plane='xz', line_d
     dislocated_structure = aseLatticeData.copy()
 
     # Determine the slip and line directions
-    slip_directions = {'xy': (1, 1, 0), 'xz': (1, 0, 1), 'yz': (0, 1, 1)}
-    line_directions = {'x': (1, 0, 0), 'y': (0, 1, 0), 'z': (0, 0, 1)}
+    slip_directions = {'xy': (0.7, 0.7, 0), 'xz': (0.7, 0, 1), 'yz': (0, 0.7, 0.7)}
+    line_directions = {'x': (0.7, 0, 0), 'y': (0, 0.7, 0), 'z': (0, 0, 0.7)}
 
     slip_direction = np.array(slip_directions[dislocation_plane])
     line_direction = np.array(line_directions[line_direction])
@@ -65,7 +65,10 @@ def interstitials(atom, structure, aseLatticeData, interstitial):
     # randomly select the defect position
     random_index = np.random.randint(len(data_copy))
     base_position = data_copy[random_index].position
-    offset = np.random.rand(3) * 0.2 - 0.1  # Random offset in the range [-0.1, 0.1]
+    # faire une génération uniforme et pas gaussienne
+    # random offset in the range [-0.1, 0.1] autour de
+    # la position entre deux atomes les plus proches voisins
+    offset = np.random.rand(3) * 0.2  # Random offset in the range [-0.1, 0.1]
     position = base_position + offset
 
     # Create a new atom with the same symbol and the new position
