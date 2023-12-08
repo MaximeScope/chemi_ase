@@ -32,8 +32,8 @@ def dislocations(atom, structure, aseLatticeData, threshold=[-10., 5., -10.], fa
         atom (str): The atom name.
         structure (str): The structure type (fcc, bcc, and so on).
         aseLatticeData (Atoms): The lattice structure.
-        line_direction (str): The line direction along which the dislocation will occur ('x', 'y', or 'z').
-        line_position (tuple): The position of the dislocation line in fractional coordinates.
+        threshold (list of numbers): Coordinates from which the dislocation is generated.
+        factor (list of numbers): Displacement from the initial atoms position in the dislocated area.
 
     Returns:
         Atoms: Crystal structure with a dislocation.
@@ -45,11 +45,8 @@ def dislocations(atom, structure, aseLatticeData, threshold=[-10., 5., -10.], fa
     for i in dislocated_structure:
         pos = i.position
         if (pos > np.array(threshold)).all():
-            print(f'Atom {i.index} is above the threshold')
             new_pos = np.array(factor) + pos
             i.position = new_pos
-        else:
-            print(f'Atom {i.index} is below the threshold')
 
     # Write the new structure to the XYZ file
     dislocated_structure.write(f'{atom}/XYZ/{atom}_{structure}_dislocation.xyz')
