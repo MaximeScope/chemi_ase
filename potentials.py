@@ -32,7 +32,7 @@ def LAMMPS(potential, settings):
 
     if settings['relax']:
         optimizer = LBFGS(frame)
-        optimizer.run(fmax=settings['fmax'])
+        optimizer.run(fmax=settings['fmax'], steps=100)
         frame.calc = LAMMPSlib(lmpcmds=cmds, atom_types=atom_types, log_file='log.lammps')
 
     return store_potential(frame, potential)

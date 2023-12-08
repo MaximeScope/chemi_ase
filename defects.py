@@ -24,13 +24,14 @@ def vacancies(atom, structure, aseLatticeData, n_defects=1):
 
         print(f'Removed atom {defect} from {atom}_{structure}_vacancy.xyz')
 
-def dislocations(atom, structure, aseLatticeData, dislocation_plane='xz', line_direction='y', line_position=(0.5, 0.5, 0.5)):
+def dislocations(atom, structure, aseLatticeData, threshold=[-10., 5., -10.], factor=[0., 0., 0.5]):
     """
-    Generate a crystal structure with a dislocation.
+    Generate a crystal structure with a slip dislocation.
 
     Parameters:
-        bulk_structure (Atoms): The bulk crystal structure without defects.
-        dislocation_plane (str): The slip plane for the dislocation ('xy', 'xz', or 'yz').
+        atom (str): The atom name.
+        structure (str): The structure type (fcc, bcc, and so on).
+        aseLatticeData (Atoms): The lattice structure.
         line_direction (str): The line direction along which the dislocation will occur ('x', 'y', or 'z').
         line_position (tuple): The position of the dislocation line in fractional coordinates.
 
@@ -40,20 +41,15 @@ def dislocations(atom, structure, aseLatticeData, dislocation_plane='xz', line_d
     # Create a copy of the bulk structure
     dislocated_structure = aseLatticeData.copy()
 
-    # Determine the slip and line directions
-    slip_directions = {'xy': (0.7, 0.7, 0), 'xz': (0.7, 0, 1), 'yz': (0, 0.7, 0.7)}
-    line_directions = {'x': (0.7, 0, 0), 'y': (0, 0.7, 0), 'z': (0, 0, 0.7)}
-
-    slip_direction = np.array(slip_directions[dislocation_plane])
-    line_direction = np.array(line_directions[line_direction])
-
     # Create a dislocation line
     for i in dislocated_structure:
         pos = i.position
-        pos_proj = np.dot(pos - line_position, slip_direction) * slip_direction + line_position
-        pos_perp = pos - pos_proj
-        displacement = np.cross(line_direction, pos_perp)
-        i.position += displacement
+        if (pos > np.array(threshold)).all():
+            print(f'Atom {i.index} is above the threshold')
+            new_pos = np.array(factor) + pos
+            i.position = new_pos
+        else:
+            print(f'Atom {i.index} is below the threshold')
 
     # Write the new structure to the XYZ file
     dislocated_structure.write(f'{atom}/XYZ/{atom}_{structure}_dislocation.xyz')
