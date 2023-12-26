@@ -59,9 +59,9 @@ def interstitials(atom, structure, aseLatticeData, interstitial):
     random_index = np.random.randint(len(data_copy))
     base_position = data_copy[random_index].position
     # faire une génération uniforme et pas gaussienne
-    # random offset in the range [-0.1, 0.1] autour de
+    # random offset in the range [0, 0.2] autour de
     # la position entre deux atomes les plus proches voisins
-    offset = np.random.rand(3) * 0.2  # Random offset in the range [-0.1, 0.1]
+    offset = np.random.rand(3) * 0.2  # Random offset in the range [0, 0.2]
     position = base_position + offset
 
     # Create a new atom with the same symbol and the new position
